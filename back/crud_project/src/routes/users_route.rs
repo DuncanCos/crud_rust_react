@@ -8,4 +8,7 @@ pub  fn routes() -> Router  {
     Router::new()
         .route("/users", get(users_controller::all_users))
         .route("/user/:id", get(users_controller::one_user))
+        .route("/user", post(users_controller::new_user))
+        .route("/user/:id", put(users_controller::modify_user))
+        .route("/user/:id", delete(users_controller::delete_user))
 }

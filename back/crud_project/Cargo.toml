@@ -7,4 +7,4 @@ edition = "2021"
 tokio = { version = "1.37.0", features = ["macros", "rt-multi-thread"] }
 axum = "0.7.5"
 sqlx = {version = "0.8.0", features = ["mysql","runtime-async-std"] }
-serde = "1.0.209"
+serde = {version = "1.0.209", features = ["derive"]}
