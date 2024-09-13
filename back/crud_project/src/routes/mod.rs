@@ -1,14 +1,21 @@
-mod hello_route;
-mod users_route;
+use axum::{Extension, Router};
+use sqlx::mysql::MySqlPool;
+use tower_http::cors::{CorsLayer, Any};
 
+mod users_routes;
 
-use axum::{ routing::get, Router};
-//use hello_route::routes;
+pub fn routing(pool: MySqlPool) -> Router {
 
+    let cors = CorsLayer::new()
+        .allow_origin(Any)
+        .allow_methods(Any)
+        .allow_headers(Any);
 
-pub fn create_routes() -> Router {
+    let app = Router::new()
+        .nest("/users", users_routes::user_routing())
+        .layer(Extension(pool))
+        .layer(cors);
     
-    Router::new().merge(hello_route::routes())
-        .merge(users_route::routes())
 
+    app
 }
